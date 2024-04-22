@@ -48,11 +48,11 @@ test('Put by Id => should return status 200', async () => {
 
 
 test('Delete by Id => should return status 204', async () => {
-    const res = await ActorModel.findOne({where: {firstName:'Kevin'}})??"1";
+    // const res = await ActorModel.findOne({where: {firstName:'Kevin'}})??"1";
     // const res2 = await request(app)
     // .post(URL_BASE)
     // .send(actors);
-    const resId = await request(app).delete(`/api/v1/actors/${actorsId}`);
+    const resId = await request(app).delete(`${URL_BASE}/${actorsId}`);
     expect(resId.status).toBe(204);
 });
 
