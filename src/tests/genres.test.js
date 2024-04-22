@@ -8,16 +8,16 @@ const genres = {
     Genre:"Horror",
 }
 
-// let actorsId = 1;
+let genreId;
 
-test('Get Actors => should return status 200', async () => {
+test('Get Genres => should return status 200', async () => {
     const res = await request(app)
     .get(URL_BASE)
 
     expect(res.statusCode).toBe(200)
 })
 
-test('Post Actors => should return status 201', async () =>{
+test('Post Genres => should return status 201', async () =>{
     const res = await request(app)
     .post(URL_BASE)
     .send(genres);
@@ -45,18 +45,10 @@ test('Put by Id => should return status 200', async () => {
 
 
 test('Delete by Id => should return status 204', async () => {
-    // const res = await request(app)
-    //   .delete(`${URL_BASE}/${actorsId}`);
 
-    // await expect(res.statusCode).toBe(204);
+    const res = await request(app)
+    .delete(`${URL_BASE}/${genreId}`)
 
-    // // Verificar que el actor ya no existe en la base de datos
-    // const deletedActor = await ActorModel.findByPk(actorsId);
-    // expect(deletedActor).toBeNull();
-
-    const res = await ActorModel.findOne({where: {firstName:'Kevin'}})??"1";
-    const resId = await request(app).delete(`/api/v1/actors/${res.id}`);
-    expect(resId.status).toBe(204);
-
+    expect(res.status).toBe(204)
 });
 

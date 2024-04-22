@@ -1,6 +1,5 @@
 const request = require('supertest')
 const app = require('../app');
-const ActorModel = require('../models/Actors');
 
 const URL_BASE = '/api/v1/actors';
 const actors = {
@@ -10,7 +9,7 @@ const actors = {
     birthday:"2023-03-03"
 }
 
-let actorsId = 1;
+let actorsId;
 
 test('Get Actors => should return status 200', async () => {
     const res = await request(app)
@@ -46,13 +45,10 @@ test('Put by Id => should return status 200', async () => {
 });
 
 
-
 test('Delete by Id => should return status 204', async () => {
-    // const res = await ActorModel.findOne({where: {firstName:'Kevin'}})??"1";
-    // const res2 = await request(app)
-    // .post(URL_BASE)
-    // .send(actors);
-    const resId = await request(app).delete(`${URL_BASE}/${actorsId}`);
-    expect(resId.status).toBe(204);
-});
 
+    const res = await request(app)
+    .delete(`${URL_BASE}/${actorsId}`)
+
+    expect(res.status).toBe(204)
+});

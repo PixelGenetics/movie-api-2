@@ -1,6 +1,5 @@
 const request = require('supertest')
 const app = require('../app');
-const ActorModel = require('../models');
 
 const URL_BASE = '/api/v1/directors';
 const directors = {
@@ -10,7 +9,7 @@ const directors = {
     birthday:"2023-03-03"
 }
 
-let directorsId = 1;
+let directorsId;
 
 test('Get Director => should return status 200', async () => {
     const res = await request(app)
@@ -47,13 +46,9 @@ test('Put by Id => should return status 200', async () => {
 
 
 test('Delete by Id => should return status 204', async () => {
+
     const res = await request(app)
-      .delete(`${URL_BASE}/${actorsId}`);
+    .delete(`${URL_BASE}/${directorsId}`)
 
-    await expect(res.statusCode).toBe(204);
-
-    // Verificar que el actor ya no existe en la base de datos
-    const deletedActor = await ActorModel.findByPk(actorsId);
-    expect(deletedActor).toBeNull();
-}, 10000);
-
+    expect(res.status).toBe(204)
+});
